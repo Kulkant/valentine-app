@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal, Badge } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -6,32 +6,40 @@ import {
   MapPin,
   Clock,
   Calendar,
-  AlertTriangle,
+  ShieldAlert,
   XCircle,
+  Ticket,
   Lock,
 } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const CONFIG = {
   partnerName: "Sheetal",
-  // We keep the actual location out of the UI text
-  location: "That's hidden for now.",
+  location: "A Secret Milestone (To be revealed)",
   date: "February 14, 2026",
-  time: "After Your Classes",
+  time: "07:30 PM",
   years: "3",
 };
 
 export default function App() {
-  const [step, setStep] = useState("invite"); // invite, details, rejected
+  const [step, setStep] = useState("splash"); // splash, invite, details, rejected
   const [showFakeError, setShowFakeError] = useState(false);
 
+  // The 5-second Splash transition
+  useEffect(() => {
+    if (step === "splash") {
+      const timer = setTimeout(() => setStep("invite"), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
+
   const cardStyle = {
-    background: "rgba(8, 8, 8, 0.98)",
+    background: "rgba(5, 5, 5, 0.95)",
     border: "1px solid rgba(255, 255, 255, 0.1)",
     padding: "50px 40px",
     borderRadius: "40px",
-    backdropFilter: "blur(60px)",
-    boxShadow: "0 40px 100px rgba(0, 0, 0, 1)",
+    backdropFilter: "blur(50px)",
+    boxShadow: "0 30px 60px -12px rgba(0, 0, 0, 1)",
   };
 
   return (
@@ -42,7 +50,6 @@ export default function App() {
         display: "flex",
         alignItems: "center",
         color: "#fff",
-        fontFamily: "'Inter', sans-serif",
         overflow: "hidden",
       }}
     >
@@ -50,12 +57,42 @@ export default function App() {
         <Row className="justify-content-center text-center">
           <Col md={10} lg={6} xl={5}>
             <AnimatePresence mode="wait">
-              {/* STEP 1: THE REVERSE PSYCHOLOGY CLICKBAIT */}
+              {/* STEP 0: THE 5-SECOND FAKE DSEU PASS */}
+              {step === "splash" && (
+                <motion.div
+                  key="splash"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, scale: 1.1 }}
+                  className="p-5 border border-secondary rounded-4"
+                  style={{
+                    background: "rgba(15, 15, 15, 0.5)",
+                    backdropFilter: "blur(10px)",
+                  }}
+                >
+                  <Ticket size={48} className="text-info mb-4" />
+                  <h2 className="fw-bold tracking-tighter">DSEU FEST 2026</h2>
+                  <p className="text-secondary small mb-4">
+                    Official Delegate Access • Entry #2026-VAL
+                  </p>
+                  <div className="d-flex justify-content-center align-items-center gap-2 text-info opacity-75">
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                    ></span>
+                    <span className="fw-bold small tracking-widest uppercase">
+                      Validating Credentials...
+                    </span>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* STEP 1: THE ROMANTIC REVEAL */}
               {step === "invite" && (
                 <motion.div
                   key="invite"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                 >
                   <div className="mb-5 opacity-40 d-flex justify-content-center align-items-center gap-2">
@@ -64,7 +101,7 @@ export default function App() {
                       className="small tracking-widest uppercase"
                       style={{ fontSize: "10px" }}
                     >
-                      Private Invitation • v3.0
+                      Secure Handshake • Connection Established
                     </div>
                   </div>
 
@@ -94,18 +131,18 @@ export default function App() {
                       style={{ borderStyle: "dotted" }}
                       onClick={() => setShowFakeError(true)}
                     >
-                      ⚠️ No I am not intrested
+                      ⚠️ DON'T CLICK
                     </Button>
                   </div>
                 </motion.div>
               )}
 
-              {/* STEP 2: THE SECURE DETAILS & GENUINE NO */}
+              {/* STEP 2: THE SECURE DETAILS */}
               {step === "details" && (
                 <motion.div
                   key="details"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
                 >
                   <div style={cardStyle}>
                     <Badge
@@ -114,11 +151,11 @@ export default function App() {
                       className="mb-4 px-3 py-2"
                       style={{ fontSize: "10px", letterSpacing: "2px" }}
                     >
-                      CONFIRMED • SECURE_DETAILS
+                      CONFIRMED • SECURE_ACCESS
                     </Badge>
 
-                    <h2 className="fw-bold mb-5 display-6 text-white">
-                      See you there, {CONFIG.partnerName}.
+                    <h2 className="fw-bold mb-5 display-6">
+                      It's a date, {CONFIG.partnerName}.
                     </h2>
 
                     <div className="text-start mb-5 d-grid gap-3">
@@ -178,7 +215,7 @@ export default function App() {
                         style={{ fontSize: "13px", opacity: 0.5 }}
                         onClick={() => setStep("rejected")}
                       >
-                        Decline Invitation (Genuine)
+                        Decline Invitation (Final)
                       </Button>
                     </div>
                   </div>
@@ -197,11 +234,11 @@ export default function App() {
                     className="text-secondary mb-4 opacity-10"
                   />
                   <h3 className="fw-bold text-secondary mb-3">
-                    Invitation Declined.
+                    Choice Respected.
                   </h3>
                   <p className="text-secondary px-4">
-                    Your choice respected. After 3 years, I value your honesty
-                    over a forced "Yes.".And it's completely fine. I understand.
+                    Three years means I value your honesty. We'll celebrate some
+                    other time, Sheetal.
                   </p>
                   <Button
                     variant="outline-light"
@@ -218,7 +255,7 @@ export default function App() {
         </Row>
       </Container>
 
-      {/* FAKE NO MODAL (Reverse Psychology Payoff) */}
+      {/* FAKE NO MODAL (Clickbait Payoff) */}
       <Modal
         show={showFakeError}
         onHide={() => setShowFakeError(false)}
@@ -232,21 +269,22 @@ export default function App() {
           }}
         >
           <Modal.Body className="text-center p-5">
-            <AlertTriangle size={50} className="text-danger mb-4" />
+            <ShieldAlert size={50} className="text-danger mb-4" />
             <h4 className="fw-bold tracking-tighter text-danger">
               403: CURIOSITY_DETECTED
             </h4>
             <p className="text-secondary small mt-3 px-2">
-              The "No" path has been temporarily disabled because you can't say
-              no. There is no 'NO' Please use the <b>'YES'</b> button to
-              proceed.
+              Nice try, Sheetal. The "No" path has been restricted by Admin.
+              <br />
+              <br />
+              Please re-authenticate your intent using the <b>'YES'</b> button.
             </p>
             <Button
               variant="danger"
               className="mt-4 w-100 fw-bold py-3 rounded-3"
               onClick={() => setShowFakeError(false)}
             >
-              Now Go Back and Click Yes
+              Return to Login
             </Button>
           </Modal.Body>
         </div>
