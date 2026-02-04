@@ -15,9 +15,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const CONFIG = {
   partnerName: "Sheetal",
-  location: "A Secret Milestone (To be revealed)",
+  location: "Oops! That's hidden for now.",
   date: "February 14, 2026",
-  time: "07:30 PM",
+  time: "After your classes",
   years: "3",
 };
 
@@ -131,7 +131,7 @@ export default function App() {
                       style={{ borderStyle: "dotted" }}
                       onClick={() => setShowFakeError(true)}
                     >
-                      ⚠️ DON'T CLICK
+                      ⚠️ No I Am Not Intrested
                     </Button>
                   </div>
                 </motion.div>
@@ -155,8 +155,10 @@ export default function App() {
                     </Badge>
 
                     <h2 className="fw-bold mb-5 display-6">
-                      It's a date, {CONFIG.partnerName}.
+                      Yayy You Are My Valentine , {CONFIG.partnerName}.
                     </h2>
+
+                    <h6>Date Confirmed.</h6>
 
                     <div className="text-start mb-5 d-grid gap-3">
                       <div
@@ -212,7 +214,7 @@ export default function App() {
                       <Button
                         variant="outline-secondary"
                         className="rounded-pill py-2 border-secondary"
-                        style={{ fontSize: "13px", opacity: 0.5 }}
+                        style={{ fontSize: "13px", opacity: 0.8 }}
                         onClick={() => setStep("rejected")}
                       >
                         Decline Invitation (Final)
@@ -234,11 +236,11 @@ export default function App() {
                     className="text-secondary mb-4 opacity-10"
                   />
                   <h3 className="fw-bold text-secondary mb-3">
-                    Choice Respected.
+                    Invitation Declined.
                   </h3>
                   <p className="text-secondary px-4">
-                    Three years means I value your honesty. We'll celebrate some
-                    other time, Sheetal.
+                    Your choice respected. After 3 years, I value your honesty
+                    over a forced "Yes.".And it's completely fine. I understand.
                   </p>
                   <Button
                     variant="outline-light"
@@ -274,17 +276,16 @@ export default function App() {
               403: CURIOSITY_DETECTED
             </h4>
             <p className="text-secondary small mt-3 px-2">
-              Nice try, Sheetal. The "No" path has been restricted by Admin.
-              <br />
-              <br />
-              Please re-authenticate your intent using the <b>'YES'</b> button.
+              The "No" path has been temporarily disabled because you can't say
+              no. There is no 'NO' Please use the <b>'YES'</b> button to
+              proceed.
             </p>
             <Button
               variant="danger"
               className="mt-4 w-100 fw-bold py-3 rounded-3"
               onClick={() => setShowFakeError(false)}
             >
-              Return to Login
+              Return to Click Yes
             </Button>
           </Modal.Body>
         </div>
