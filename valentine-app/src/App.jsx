@@ -28,7 +28,7 @@ export default function App() {
   // The 5-second Splash transition
   useEffect(() => {
     if (step === "splash") {
-      const timer = setTimeout(() => setStep("invite"), 5000);
+      const timer = setTimeout(() => setStep("invite"), 3500);
       return () => clearTimeout(timer);
     }
   }, [step]);
@@ -71,7 +71,7 @@ export default function App() {
                   }}
                 >
                   <Ticket size={48} className="text-info mb-4" />
-                  <h2 className="fw-bold tracking-tighter">DSEU FEST 2026</h2>
+                  <h2 className="fw-bold tracking-tighter">DSEU FEST 2026 </h2>
                   <p className="text-secondary small mb-4">
                     Official Delegate Access • Entry #2026-VAL
                   </p>
